@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    
+    <meta name='admaven-placement' content=BrHC9qjU5>
+    
+    
+    
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CT Water Bill Lookup | Check Rates & Estimate Costs</title>
+    <meta name="description" content="Official Connecticut water bill calculator with 2025 rates from all major providers including CT Water, Aquarion, and MDC.">
+    <!-- OpenGraph/Social Media Meta Tags -->
+    <meta property="og:title" content="CT Water Bill Calculator | 2025 Rates & Estimator">
+    <meta property="og:description" content="Calculate your Connecticut water bill using official 2025 rates from all major providers.">
+    <meta property="og:type" content="website">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #0056b3;
+            --secondary: #004494;
+            --accent: #00a0e1;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #28a745;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f9f9f9;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Navigation */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--primary);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+        .logo-text {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 5px 0;
+        }
+        nav a:hover {
+            color: var(--primary);
+        }
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,86,179,0.8), rgba(0,86,179,0.9));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        .hero-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+        .hero-btn:hover {
+            background: #0088c6;
+        }
+
+        /* Calculator */
+        .calculator-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 800px;
+            margin: -50px auto 50px;
+            position: relative;
+            z-index: 2;
+        }
+        .calculator h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .form-group select, 
+        .form-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+        .calculate-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            grid-column: span 2;
+        }
+        .calculate-btn:hover {
+            background: #0088c6;
+        }
+        .results {
+            background: #f0f7ff;
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 4px;
+            grid-column: span 2;
+        }
+        .total-display {
+            font-size: 1.5rem;
+            color: var(--success);
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        .disclaimer {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 10px;
+        }
+
+        /* About Section */
+        .about-section {
+            background: white;
+            padding: 30px 0;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        .about-section p {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Rates Table */
+        .rates-section {
+            padding: 60px 0;
+            background: #f5f9ff;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .rates-table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            background: white;
+        }
+        .rates-table th {
+            background: var(--primary);
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .rates-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .rates-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        .rates-table tr:hover {
+            background: #f0f7ff;
+        }
+        .rate-tier {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .rate-tier:last-child {
+            margin-bottom: 0;
+        }
+
+        /* FAQ Section */
+        .faq {
+            margin: 3rem 0;
+        }
+        .faq-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .faq-item.active .faq-answer {
+            padding: 15px 20px;
+            max-height: 500px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 30px 0 20px;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .footer-link {
+            color: var(--accent);
+            text-decoration: underline;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            padding: 0;
+            font-family: inherit;
+        }
+        .footer-info {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            margin: 10px auto 0;
+            border-radius: 4px;
+            display: none;
+            max-width: 600px;
+            text-align: center;
+        }
+        .footer-info a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .footer-info a:hover {
+            text-decoration: underline;
+        }
+        .copyright {
+            color: #aaa;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Ad Container Styles - Hidden since they're placeholders */
+        .ad-container {
+            display: none;
+            margin: 20px auto;
+            padding: 10px;
+            background: #f0f0f0;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        /* Focus States */
+        input:focus, select:focus, button:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* Print Styles */
+        @media print {
+            .ad-container, nav, .hero-btn, .footer-links {
+                display: none !important;
+            }
+            .calculator-container {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .calculate-btn,
+            .results {
+                grid-column: span 1;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo-text">CTWaterRates</div>
+            <nav>
+                <ul>
+                    <li><a href="#calculator">Bill Calculator</a></li>
+                    <li><a href="#rates">Water Rates</a></li>
+                    <li><a href="#faq">FAQs</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <style>
+        h1 {text-align: center;}
+        p {text-align: center;}
+        div {text-align: center;}
+    </style>
+
+    <h1><a href='https://mypurewater.com/shop/mini-classic-ct-distiller/?sld=1062' title='Water Distiller Holiday Sale' referrerpolicy='origin'><img src='https://mypurewater.com/wp-content/uploads/Holiday-Sale-728x90-2.png' alt='Water Distiller Holiday Sale' style='' /></a></h1>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Connecticut Water Bill Calculator</h1>
+            <p>Estimate your monthly water costs using official 2025 rates from all major CT providers</p>
+            <a href="#calculator" class="hero-btn">Calculate Now</a>
+        </div>
+    </section>
+
+    <!-- Ad Container (hidden) -->
+    <div class="container ad-container">
+        <p>Advertisement Space</p>
+    </div>
+
+    <section id="calculator" class="calculator-container">
+        <h2>Calculate Your Water Bill</h2>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="provider">Water Provider</label>
+                <select id="provider">
+                    <option value="">Select your provider</option>
+                    <option value="ct-water">Connecticut Water Company</option>
+                    <option value="aquarion">Aquarion Water Company</option>
+                    <option value="mdc">Metropolitan District Commission</option>
+                    <option value="rwa">Regional Water Authority</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="usage">Monthly Usage (gallons)</label>
+                <input type="number" id="usage" placeholder="e.g., 4000" min="0">
+                <small class="disclaimer">Typical household: 3,000-5,000 gal/month</small>
+            </div>
+            <div class="form-group">
+                <label for="meter">Meter Size</label>
+                <select id="meter">
+                    <option value="5/8">5/8 inch (Standard Residential)</option>
+                    <option value="3/4">3/4 inch</option>
+                    <option value="1">1 inch</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="service-type">Service Type</label>
+                <select id="service-type">
+                    <option value="residential">Residential</option>
+                    <option value="commercial">Commercial</option>
+                </select>
+            </div>
+            <button class="calculate-btn">Calculate Bill</button>
+            <div class="results" id="results" style="display: none;">
+                <h3>Estimated Monthly Bill</h3>
+                <div id="bill-result"></div>
+                <div class="total-display" id="total-bill"></div>
+                <p class="disclaimer">This is an estimate. Actual bills may vary based on local fees and taxes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <h2>About This Tool</h2>
+            <p>Our calculator uses official 2025 rates approved by Connecticut's Public Utilities Regulatory Authority (PURA). We update rates annually to ensure accuracy.</p>
+        </div>
+    </section>
+
+    <!-- Ad Container (hidden) -->
+    <div class="container ad-container">
+        <p>Advertisement Space</p>
+    </div>
+
+    <section id="rates" class="rates-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>2025 Connecticut Water Rates</h2>
+                <p>Current rates as approved by the Public Utilities Regulatory Authority</p>
+            </div>
+            <table class="rates-table">
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th>Service Area</th>
+                        <th>Base Charge</th>
+                        <th>Usage Rate (per 748 gal)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Connecticut Water Co.</td>
+                        <td>60 towns statewide</td>
+                        <td>$14.98</td>
+                        <td>
+                            <span class="rate-tier">$3.91 (first 802 CCF/day)</span>
+                            <span class="rate-tier">$3.16 (additional)</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Aquarion Water</td>
+                        <td>Fairfield/New Haven</td>
+                        <td>$16.25</td>
+                        <td>$4.12</td>
+                    </tr>
+                    <tr>
+                        <td>Metropolitan District Commission</td>
+                        <td>Hartford region</td>
+                        <td>$14.98</td>
+                        <td>
+                            <span class="rate-tier">$3.91 (first 802 CCF/day)</span>
+                            <span class="rate-tier">$3.16 (additional)</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="container faq">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>How often are water rates adjusted in Connecticut?</span>
+                <span class="toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Water utilities in Connecticut typically file rate cases with PURA every 3-5 years. The most recent adjustments were approved in 2024 and took effect January 2025.</p>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Which provider serves my area?</span>
+                <span class="toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>You can check service areas on the <a href="https://portal.ct.gov/PURA" target="_blank">PURA website</a> or contact your town's public works department.</p>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What is the average water bill in Connecticut?</span>
+                <span class="toggle">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>The average residential water bill ranges from $60-$120 monthly depending on usage and provider. Most households using 4,000 gallons pay $75-$90.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#" class="footer-link" id="privacyLink">Privacy Policy</a>
+            </div>
+            
+            <div class="footer-info" id="privacyInfo">
+                <h3>Privacy Policy</h3>
+                <p>This site uses analytics to improve user experience. All calculations are processed in your browser and no personal data is stored.</p>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 CTWaterRates.com | Not affiliated with any water utility
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Load saved user inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedProvider = localStorage.getItem('lastProvider');
+            const savedUsage = localStorage.getItem('lastUsage');
+            const savedMeter = localStorage.getItem('lastMeter');
+            const savedServiceType = localStorage.getItem('lastServiceType');
+            
+            if (savedProvider) document.getElementById('provider').value = savedProvider;
+            if (savedUsage) document.getElementById('usage').value = savedUsage;
+            if (savedMeter) document.getElementById('meter').value = savedMeter;
+            if (savedServiceType) document.getElementById('service-type').value = savedServiceType;
+        });
+
+        // Calculator
+        document.querySelector('.calculate-btn').addEventListener('click', function() {
+            const provider = document.getElementById('provider').value;
+            const usage = parseFloat(document.getElementById('usage').value);
+            const meter = document.getElementById('meter').value;
+            const serviceType = document.getElementById('service-type').value;
+            
+            if (!provider || isNaN(usage) || usage < 0) {
+                alert('Please select a provider and enter valid usage (positive number)');
+                return;
+            }
+            
+            if (usage > 100000) {
+                alert('Please enter a realistic usage value (under 100,000 gallons)');
+                return;
+            }
+            
+            // Save inputs
+            localStorage.setItem('lastProvider', provider);
+            localStorage.setItem('lastUsage', usage);
+            localStorage.setItem('lastMeter', meter);
+            localStorage.setItem('lastServiceType', serviceType);
+            
+            const ccf = usage / 748;
+            let baseCharge = 0, rate = 0, providerName = '';
+            
+            switch(provider) {
+                case 'ct-water':
+                    baseCharge = 14.98;
+                    rate = (ccf <= 802) ? 3.91 : 3.16;
+                    providerName = 'Connecticut Water Company';
+                    break;
+                case 'aquarion':
+                    baseCharge = 16.25;
+                    rate = 4.12;
+                    providerName = 'Aquarion Water Company';
+                    break;
+                case 'mdc':
+                    baseCharge = 14.98;
+                    rate = (ccf <= 802) ? 3.91 : 3.16;
+                    providerName = 'Metropolitan District Commission';
+                    break;
+                case 'rwa':
+                    baseCharge = 15.75;
+                    rate = 3.85;
+                    providerName = 'Regional Water Authority';
+                    break;
+            }
+            
+            if (meter === '3/4') baseCharge *= 1.2;
+            if (meter === '1') baseCharge *= 1.5;
+            if (serviceType === 'commercial') baseCharge *= 1.3;
+            
+            const usageCharge = ccf * rate;
+            const totalBill = (baseCharge + usageCharge).toFixed(2);
+            
+            document.getElementById('bill-result').innerHTML = `
+                <p><strong>Provider:</strong> ${providerName}</p>
+                <p><strong>Base Charge:</strong> $${baseCharge.toFixed(2)}</p>
+                <p><strong>Usage Charge (${ccf.toFixed(1)} CCF):</strong> $${usageCharge.toFixed(2)}</p>
+            `;
+            document.getElementById('total-bill').textContent = `Total: $${totalBill}/month`;
+            document.getElementById('results').style.display = 'block';
+            
+            // Scroll to results if on mobile
+            if (window.innerWidth < 768) {
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentNode;
+                const wasActive = faqItem.classList.contains('active');
+                
+                // Close all FAQs first
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                    item.querySelector('.toggle').textContent = '+';
+                });
+                
+                // Open clicked one if it wasn't active
+                if (!wasActive) {
+                    faqItem.classList.add('active');
+                    question.querySelector('.toggle').textContent = '−';
+                }
+            });
+        });
+
+        // Footer Toggle - Only privacy remains
+        document.getElementById('privacyLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            const privacy = document.getElementById('privacyInfo');
+            privacy.style.display = privacy.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
